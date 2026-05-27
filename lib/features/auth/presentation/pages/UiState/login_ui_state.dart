@@ -12,9 +12,9 @@ class LoginLoading extends LoginUiState {
   const LoginLoading();
 }
 
-class LoginSuccess extends LoginUiState {
+class LoginData extends LoginUiState {
   final AuthSession session;
-  const LoginSuccess(this.session);
+  const LoginData(this.session);
 }
 
 class LoginError extends LoginUiState {

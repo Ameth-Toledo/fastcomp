@@ -31,7 +31,7 @@ class RegisterProvider extends ChangeNotifier {
         dialCode: dialCode,
         phoneNumber: phoneNumber,
       );
-      _state = RegisterSuccess(user);
+      _state = RegisterData(user);
     } catch (e) {
       _state = RegisterError(e.toString());
     } finally {

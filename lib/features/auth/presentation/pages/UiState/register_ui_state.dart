@@ -12,9 +12,9 @@ class RegisterLoading extends RegisterUiState {
   const RegisterLoading();
 }
 
-class RegisterSuccess extends RegisterUiState {
+class RegisterData extends RegisterUiState {
   final AuthUser user;
-  const RegisterSuccess(this.user);
+  const RegisterData(this.user);
 }
 
 class RegisterError extends RegisterUiState {
