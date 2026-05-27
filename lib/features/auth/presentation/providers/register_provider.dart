@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 
+import '../../../../../core/error/error_handler.dart';
 import '../../domain/usecases/register_usecase.dart';
 import '../pages/UiState/register_ui_state.dart';
 
@@ -33,7 +34,7 @@ class RegisterProvider extends ChangeNotifier {
       );
       _state = RegisterData(user);
     } catch (e) {
-      _state = RegisterError(e.toString());
+      _state = RegisterError(ErrorHandler.getMessage(e));
     } finally {
       notifyListeners();
     }

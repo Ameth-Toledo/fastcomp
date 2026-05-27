@@ -2,6 +2,8 @@ import '../../domain/entities/auth_session.dart';
 import '../../domain/entities/auth_user.dart';
 import '../../domain/repositories/i_auth_repository.dart';
 import '../datasource/remote/auth_remote_datasource.dart';
+import '../datasource/remote/mapper/register_response_mapper.dart';
+import '../datasource/remote/mapper/token_response_mapper.dart';
 import '../datasource/remote/model/login_request_dto.dart';
 import '../datasource/remote/model/register_request_dto.dart';
 
@@ -15,20 +17,7 @@ class AuthRepositoryImpl implements IAuthRepository {
     final dto = await remoteDataSource.login(
       LoginRequestDto(email: email, password: password),
     );
-    return AuthSession(
-      accessToken: dto.accessToken,
-      refreshToken: dto.refreshToken,
-      tokenType: dto.tokenType,
-      user: AuthUser(
-        id: dto.user.id,
-        name: dto.user.name,
-        lastName: dto.user.lastName,
-        email: dto.user.email,
-        role: dto.user.role,
-        profileImage: dto.user.profileImage,
-        oauthProvider: dto.user.oauthProvider,
-      ),
-    );
+    return dto.toEntity();
   }
 
   @override
@@ -50,12 +39,6 @@ class AuthRepositoryImpl implements IAuthRepository {
         phoneNumber: phoneNumber,
       ),
     );
-    return AuthUser(
-      id: dto.id,
-      name: dto.name,
-      lastName: dto.lastName,
-      email: dto.email,
-      role: dto.role,
-    );
+    return dto.toEntity();
   }
 }

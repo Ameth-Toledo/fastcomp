@@ -3,12 +3,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'app.dart';
+import 'core/network/api_client.dart';
 
 void main() {
+  final apiClient = ApiClient();
   runApp(
     DevicePreview(
       enabled: !kReleaseMode,
-      builder: (_) => const App(),
+      builder: (_) => App(apiClient: apiClient),
     ),
   );
 }

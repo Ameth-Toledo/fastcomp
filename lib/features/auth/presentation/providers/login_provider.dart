@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 
+import '../../../../../core/error/error_handler.dart';
 import '../../domain/usecases/login_usecase.dart';
 import '../pages/UiState/login_ui_state.dart';
 
@@ -19,7 +20,7 @@ class LoginProvider extends ChangeNotifier {
       final session = await loginUseCase(email: email, password: password);
       _state = LoginData(session);
     } catch (e) {
-      _state = LoginError(e.toString());
+      _state = LoginError(ErrorHandler.getMessage(e));
     } finally {
       notifyListeners();
     }
