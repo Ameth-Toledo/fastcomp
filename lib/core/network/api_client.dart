@@ -8,20 +8,26 @@ class ApiClient {
   final http.Client _client;
   final String _baseUrl;
 
-  String? _token;
+  String? _cookie;
 
   ApiClient({http.Client? client})
       : _client = client ?? http.Client(),
         _baseUrl = ApiConstants.baseUrl;
 
-  void setToken(String token) => _token = token;
+  void setCookie(String setCookieHeader) {
+    // Set-Cookie llega como "token=eyJ...; Path=/; HttpOnly"
+    // Solo necesitamos la parte "name=value" para enviarla de vuelta
+    _cookie = setCookieHeader.split(';').first.trim();
+  }
 
-  void clearToken() => _token = null;
+  void clearCookie() => _cookie = null;
+
+  bool get isAuthenticated => _cookie != null;
 
   Map<String, String> get _headers => {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        if (_token != null) 'Authorization': 'Bearer $_token',
+        if (_cookie case final cookie?) 'Cookie': cookie,
       };
 
   Future<http.Response> get(String endpoint) {
