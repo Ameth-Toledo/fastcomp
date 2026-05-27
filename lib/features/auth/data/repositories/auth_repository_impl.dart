@@ -1,9 +1,8 @@
-import '../../domain/entities/auth_session.dart';
 import '../../domain/entities/auth_user.dart';
 import '../../domain/repositories/i_auth_repository.dart';
 import '../datasource/remote/auth_remote_datasource.dart';
+import '../datasource/remote/mapper/login_response_mapper.dart';
 import '../datasource/remote/mapper/register_response_mapper.dart';
-import '../datasource/remote/mapper/token_response_mapper.dart';
 import '../datasource/remote/model/login_request_dto.dart';
 import '../datasource/remote/model/register_request_dto.dart';
 
@@ -13,7 +12,7 @@ class AuthRepositoryImpl implements IAuthRepository {
   AuthRepositoryImpl({required this.remoteDataSource});
 
   @override
-  Future<AuthSession> login({required String email, required String password}) async {
+  Future<AuthUser> login({required String email, required String password}) async {
     final dto = await remoteDataSource.login(
       LoginRequestDto(email: email, password: password),
     );
@@ -22,21 +21,23 @@ class AuthRepositoryImpl implements IAuthRepository {
 
   @override
   Future<AuthUser> register({
-    required String name,
+    required String firstName,
     required String lastName,
+    required String businessName,
     required String email,
     required String password,
-    String? dialCode,
-    String? phoneNumber,
+    required String phone,
+    String? website,
   }) async {
     final dto = await remoteDataSource.register(
       RegisterRequestDto(
-        name: name,
+        firstName: firstName,
         lastName: lastName,
+        businessName: businessName,
         email: email,
         password: password,
-        dialCode: dialCode,
-        phoneNumber: phoneNumber,
+        phone: phone,
+        website: website,
       ),
     );
     return dto.toEntity();

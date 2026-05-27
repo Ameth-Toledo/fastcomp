@@ -21,11 +21,11 @@ class _PasswordFieldState extends State<PasswordField> {
         hintText: '••••••••',
         border: const OutlineInputBorder(),
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-        suffixIcon: TextButton(
+        suffixIcon: IconButton(
           onPressed: () => setState(() => _obscure = !_obscure),
-          child: Text(
-            _obscure ? 'VER' : 'OCULTAR',
-            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.black54),
+          icon: Icon(
+            _obscure ? Icons.visibility : Icons.visibility_off,
+            color: Colors.black54,
           ),
         ),
       ),

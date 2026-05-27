@@ -13,24 +13,26 @@ class RegisterProvider extends ChangeNotifier {
   RegisterUiState get state => _state;
 
   Future<void> register({
-    required String name,
+    required String firstName,
     required String lastName,
+    required String businessName,
     required String email,
     required String password,
-    String? dialCode,
-    String? phoneNumber,
+    required String phone,
+    String? website,
   }) async {
     _state = const RegisterLoading();
     notifyListeners();
 
     try {
       final user = await registerUseCase(
-        name: name,
+        firstName: firstName,
         lastName: lastName,
+        businessName: businessName,
         email: email,
         password: password,
-        dialCode: dialCode,
-        phoneNumber: phoneNumber,
+        phone: phone,
+        website: website,
       );
       _state = RegisterData(user);
     } catch (e) {

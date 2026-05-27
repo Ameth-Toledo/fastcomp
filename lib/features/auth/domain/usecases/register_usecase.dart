@@ -7,19 +7,21 @@ class RegisterUseCase {
   RegisterUseCase({required this.repository});
 
   Future<AuthUser> call({
-    required String name,
+    required String firstName,
     required String lastName,
+    required String businessName,
     required String email,
     required String password,
-    String? dialCode,
-    String? phoneNumber,
+    required String phone,
+    String? website,
   }) =>
       repository.register(
-        name: name,
+        firstName: firstName,
         lastName: lastName,
+        businessName: businessName,
         email: email,
         password: password,
-        dialCode: dialCode,
-        phoneNumber: phoneNumber,
+        phone: phone,
+        website: website,
       );
 }

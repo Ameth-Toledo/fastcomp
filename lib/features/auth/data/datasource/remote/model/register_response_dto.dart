@@ -1,23 +1,13 @@
-class RegisterResponseDto {
-  final int id;
-  final String name;
-  final String lastName;
-  final String email;
-  final String role;
+import 'user_response_dto.dart';
 
-  const RegisterResponseDto({
-    required this.id,
-    required this.name,
-    required this.lastName,
-    required this.email,
-    required this.role,
-  });
+class RegisterResponseDto {
+  final String message;
+  final UserResponseDto user;
+
+  const RegisterResponseDto({required this.message, required this.user});
 
   factory RegisterResponseDto.fromJson(Map<String, dynamic> json) => RegisterResponseDto(
-        id: json['id'],
-        name: json['name'],
-        lastName: json['last_name'],
-        email: json['email'],
-        role: json['role'],
+        message: json['message'],
+        user: UserResponseDto.fromJson(json['user']),
       );
 }

@@ -1,4 +1,4 @@
-import '../../../domain/entities/auth_session.dart';
+import '../../../domain/entities/auth_user.dart';
 
 sealed class LoginUiState {
   const LoginUiState();
@@ -13,8 +13,8 @@ class LoginLoading extends LoginUiState {
 }
 
 class LoginData extends LoginUiState {
-  final AuthSession session;
-  const LoginData(this.session);
+  final AuthUser user;
+  const LoginData(this.user);
 }
 
 class LoginError extends LoginUiState {

@@ -4,11 +4,13 @@ import '../model/user_response_dto.dart';
 extension UserResponseDtoMapper on UserResponseDto {
   AuthUser toEntity() => AuthUser(
         id: id,
-        name: name,
+        firstName: firstName,
         lastName: lastName,
+        businessName: businessName,
         email: email,
-        role: role,
-        profileImage: profileImage,
-        oauthProvider: oauthProvider,
+        phone: phone,
+        website: website,
+        profilePhoto: profilePhoto,
+        roleId: roleId,
       );
 }

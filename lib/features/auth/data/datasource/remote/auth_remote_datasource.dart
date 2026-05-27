@@ -3,24 +3,24 @@ import 'dart:convert';
 import '../../../../../core/error/app_exception.dart';
 import '../../../../../core/network/api_client.dart';
 import 'model/login_request_dto.dart';
+import 'model/login_response_dto.dart';
 import 'model/register_request_dto.dart';
 import 'model/register_response_dto.dart';
-import 'model/token_response_dto.dart';
 
 class AuthRemoteDatasource {
   final ApiClient apiClient;
 
   AuthRemoteDatasource({required this.apiClient});
 
-  Future<TokenResponseDto> login(LoginRequestDto request) async {
+  Future<LoginResponseDto> login(LoginRequestDto request) async {
     final response = await apiClient.post('/auth/login', body: request.toJson());
 
     switch (response.statusCode) {
       case 200:
-        return TokenResponseDto.fromJson(jsonDecode(response.body));
+        return LoginResponseDto.fromJson(jsonDecode(response.body));
       case 401:
         throw const AppException('Correo o contraseña incorrectos.');
-      case 422:
+      case 400:
         throw const AppException('Datos inválidos. Verifica los campos.');
       default:
         throw const AppException('Error del servidor. Intenta más tarde.');
@@ -35,7 +35,7 @@ class AuthRemoteDatasource {
         return RegisterResponseDto.fromJson(jsonDecode(response.body));
       case 409:
         throw const AppException('Ya existe una cuenta con ese correo.');
-      case 422:
+      case 400:
         throw const AppException('Datos inválidos. Verifica los campos.');
       default:
         throw const AppException('Error del servidor. Intenta más tarde.');

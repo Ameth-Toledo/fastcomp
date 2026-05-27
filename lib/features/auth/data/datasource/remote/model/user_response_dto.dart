@@ -1,29 +1,35 @@
 class UserResponseDto {
   final int id;
-  final String name;
+  final String firstName;
   final String lastName;
+  final String businessName;
   final String email;
-  final String role;
-  final String? profileImage;
-  final String oauthProvider;
+  final String phone;
+  final String? website;
+  final String? profilePhoto;
+  final int roleId;
 
   const UserResponseDto({
     required this.id,
-    required this.name,
+    required this.firstName,
     required this.lastName,
+    required this.businessName,
     required this.email,
-    required this.role,
-    this.profileImage,
-    required this.oauthProvider,
+    required this.phone,
+    this.website,
+    this.profilePhoto,
+    required this.roleId,
   });
 
   factory UserResponseDto.fromJson(Map<String, dynamic> json) => UserResponseDto(
         id: json['id'],
-        name: json['name'],
-        lastName: json['last_name'],
+        firstName: json['firstName'],
+        lastName: json['lastName'],
+        businessName: json['businessName'],
         email: json['email'],
-        role: json['role'],
-        profileImage: json['profile_image'],
-        oauthProvider: json['oauth_provider'] ?? 'email',
+        phone: json['phone'],
+        website: json['website'],
+        profilePhoto: json['profilePhoto'],
+        roleId: json['roleId'],
       );
 }

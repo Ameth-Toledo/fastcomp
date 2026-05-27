@@ -17,8 +17,8 @@ class LoginProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final session = await loginUseCase(email: email, password: password);
-      _state = LoginData(session);
+      final user = await loginUseCase(email: email, password: password);
+      _state = LoginData(user);
     } catch (e) {
       _state = LoginError(ErrorHandler.getMessage(e));
     } finally {

@@ -1,26 +1,29 @@
 class RegisterRequestDto {
-  final String name;
+  final String firstName;
   final String lastName;
+  final String businessName;
   final String email;
   final String password;
-  final String? dialCode;
-  final String? phoneNumber;
+  final String phone;
+  final String? website;
 
   const RegisterRequestDto({
-    required this.name,
+    required this.firstName,
     required this.lastName,
+    required this.businessName,
     required this.email,
     required this.password,
-    this.dialCode,
-    this.phoneNumber,
+    required this.phone,
+    this.website,
   });
 
   Map<String, dynamic> toJson() => {
-        'name': name,
-        'last_name': lastName,
+        'firstName': firstName,
+        'lastName': lastName,
+        'businessName': businessName,
         'email': email,
         'password': password,
-        if (dialCode != null) 'dial_code': dialCode,
-        if (phoneNumber != null) 'phone_number': phoneNumber,
+        'phone': phone,
+        if (website != null) 'website': website,
       };
 }
