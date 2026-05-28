@@ -6,11 +6,13 @@ import 'package:image_picker/image_picker.dart';
 class ImagePickerField extends StatefulWidget {
   final void Function(Uint8List bytes, String filename) onImageSelected;
   final Uint8List? imageBytes;
+  final String? initialImageUrl;
 
   const ImagePickerField({
     super.key,
     required this.onImageSelected,
     this.imageBytes,
+    this.initialImageUrl,
   });
 
   @override
@@ -43,6 +45,11 @@ class _ImagePickerFieldState extends State<ImagePickerField> {
                 borderRadius: BorderRadius.circular(3),
                 child: Image.memory(widget.imageBytes!, fit: BoxFit.cover),
               )
+            : widget.initialImageUrl != null
+                ? ClipRRect(
+                    borderRadius: BorderRadius.circular(3),
+                    child: Image.network(widget.initialImageUrl!, fit: BoxFit.cover),
+                  )
             : const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

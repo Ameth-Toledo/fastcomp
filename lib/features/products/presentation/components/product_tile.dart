@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
+import 'package:provider/provider.dart';
+
+import '../../../../core/navigation/app_routes.dart';
 import '../../domain/entities/product.dart';
 import '../../domain/entities/product_category.dart';
+import '../providers/products_provider.dart';
 
 class ProductTile extends StatelessWidget {
   final Product product;
@@ -10,7 +14,18 @@ class ProductTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return InkWell(
+      onTap: () async {
+        final result = await Navigator.pushNamed(
+          context,
+          AppRoutes.productDetail,
+          arguments: product,
+        );
+        if (result == true && context.mounted) {
+          context.read<ProductsProvider>().fetchProducts();
+        }
+      },
+      child: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -73,6 +88,7 @@ class ProductTile extends StatelessWidget {
           ),
         ],
       ),
+      ),
     );
   }
 }
@@ -93,29 +109,35 @@ class _ProductThumbnail extends StatelessWidget {
       child: SizedBox(
         width: 68,
         height: 68,
-        child: Stack(
-          children: [
-            Container(color: bg),
-            CustomPaint(size: const Size(68, 68), painter: _HatchPainter()),
-            Positioned(
-              top: 6,
-              left: 6,
-              child: Text(
-                categoryAbbrev,
-                style: const TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: Colors.black54),
-              ),
-            ),
-            Positioned(
-              bottom: 6,
-              right: 6,
-              child: Text(
-                brandAbbrev,
-                style: const TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: Colors.black54),
-              ),
-            ),
-          ],
-        ),
+        child: product.imageUrl != null
+            ? Image.network(
+                product.imageUrl!,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stack) => _fallbackThumbnail(bg, categoryAbbrev, brandAbbrev),
+              )
+            : _fallbackThumbnail(bg, categoryAbbrev, brandAbbrev),
       ),
+    );
+  }
+
+  Widget _fallbackThumbnail(Color bg, String categoryAbbrev, String brandAbbrev) {
+    return Stack(
+      children: [
+        Container(color: bg),
+        CustomPaint(size: const Size(68, 68), painter: _HatchPainter()),
+        Positioned(
+          top: 6,
+          left: 6,
+          child: Text(categoryAbbrev,
+              style: const TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: Colors.black54)),
+        ),
+        Positioned(
+          bottom: 6,
+          right: 6,
+          child: Text(brandAbbrev,
+              style: const TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: Colors.black54)),
+        ),
+      ],
     );
   }
 

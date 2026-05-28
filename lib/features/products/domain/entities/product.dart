@@ -12,6 +12,7 @@ class Product {
   final bool featured;
   final String? description;
   final List<String> specs;
+  final String? imageUrl;
   final String addedAt;
 
   const Product({
@@ -25,6 +26,7 @@ class Product {
     this.featured = false,
     this.description,
     this.specs = const [],
+    this.imageUrl,
     required this.addedAt,
   });
 }

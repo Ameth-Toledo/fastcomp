@@ -17,6 +17,39 @@ class ProductsRepositoryImpl implements IProductsRepository {
   }
 
   @override
+  Future<void> deleteProduct(String id) => remoteDataSource.deleteProduct(id);
+
+  @override
+  Future<Product> updateProduct({
+    required String id,
+    required String brand,
+    required String name,
+    required String category,
+    required double price,
+    required int stock,
+    required String condition,
+    bool featured = false,
+    String? description,
+    Uint8List? imageBytes,
+    String? imageFilename,
+  }) async {
+    final dto = await remoteDataSource.updateProduct(
+      id: id,
+      brand: brand,
+      name: name,
+      category: category,
+      price: price,
+      stock: stock,
+      condition: condition,
+      featured: featured,
+      description: description,
+      imageBytes: imageBytes,
+      imageFilename: imageFilename,
+    );
+    return dto.toEntity();
+  }
+
+  @override
   Future<Product> createProduct({
     required String brand,
     required String name,

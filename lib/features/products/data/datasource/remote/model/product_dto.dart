@@ -9,6 +9,7 @@ class ProductDto {
   final bool featured;
   final String? description;
   final List<String> specs;
+  final String? imageUrl;
   final String addedAt;
 
   const ProductDto({
@@ -22,6 +23,7 @@ class ProductDto {
     required this.featured,
     this.description,
     required this.specs,
+    this.imageUrl,
     required this.addedAt,
   });
 
@@ -39,6 +41,7 @@ class ProductDto {
                 ?.map((e) => e.toString())
                 .toList() ??
             [],
+        imageUrl: json['imageUrl'],
         addedAt: json['addedAt'],
       );
 }

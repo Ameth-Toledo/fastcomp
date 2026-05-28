@@ -15,6 +15,7 @@ extension ProductDtoMapper on ProductDto {
         featured: featured,
         description: description,
         specs: specs,
+        imageUrl: imageUrl,
         addedAt: addedAt,
       );
 }

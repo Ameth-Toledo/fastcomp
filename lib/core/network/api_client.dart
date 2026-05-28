@@ -51,6 +51,26 @@ class ApiClient {
     return _client.delete(Uri.parse('$_baseUrl$endpoint'), headers: _headers);
   }
 
+  Future<http.Response> putMultipart(
+    String endpoint, {
+    required Map<String, String> fields,
+    Uint8List? imageBytes,
+    String? imageFilename,
+  }) async {
+    final request = http.MultipartRequest('PUT', Uri.parse('$_baseUrl$endpoint'));
+    if (_token case final token?) request.headers['Authorization'] = 'Bearer $token';
+    request.fields.addAll(fields);
+    if (imageBytes != null) {
+      request.files.add(http.MultipartFile.fromBytes(
+        'image',
+        imageBytes,
+        filename: imageFilename ?? 'image.jpg',
+      ));
+    }
+    final streamed = await _client.send(request);
+    return http.Response.fromStream(streamed);
+  }
+
   Future<http.Response> postMultipart(
     String endpoint, {
     required Map<String, String> fields,

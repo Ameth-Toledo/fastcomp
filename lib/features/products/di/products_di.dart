@@ -5,7 +5,9 @@ import '../../../core/network/api_client.dart';
 import '../data/datasource/remote/products_remote_datasource.dart';
 import '../data/repositories/products_repository_impl.dart';
 import '../domain/usecases/create_product_usecase.dart';
+import '../domain/usecases/delete_product_usecase.dart';
 import '../domain/usecases/get_products_usecase.dart';
+import '../domain/usecases/update_product_usecase.dart';
 import '../presentation/providers/add_product_provider.dart';
 import '../presentation/providers/products_provider.dart';
 
@@ -24,6 +26,8 @@ class ProductsDI {
         ChangeNotifierProvider(
           create: (_) => AddProductProvider(
             createProductUseCase: CreateProductUseCase(repository: repository),
+            updateProductUseCase: UpdateProductUseCase(repository: repository),
+            deleteProductUseCase: DeleteProductUseCase(repository: repository),
           ),
         ),
       ],
