@@ -9,13 +9,27 @@ class ProductsProvider extends ChangeNotifier {
   ProductsProvider({required this.getProductsUseCase});
 
   List<Product> _products = [];
-  List<Product> get products => _products;
+  String _searchQuery = '';
+
+  List<Product> get products {
+    if (_searchQuery.isEmpty) return _products;
+    final q = _searchQuery.toLowerCase();
+    return _products.where((p) =>
+      p.name.toLowerCase().contains(q) ||
+      p.brand.toLowerCase().contains(q),
+    ).toList();
+  }
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
   String? _error;
   String? get error => _error;
+
+  void setSearchQuery(String query) {
+    _searchQuery = query;
+    notifyListeners();
+  }
 
   Future<void> fetchProducts() async {
     _isLoading = true;

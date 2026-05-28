@@ -17,9 +17,9 @@ class AuthRemoteDatasource {
 
     switch (response.statusCode) {
       case 200:
-        final setCookie = response.headers['set-cookie'];
-        if (setCookie != null) apiClient.setCookie(setCookie);
-        return LoginResponseDto.fromJson(jsonDecode(response.body));
+        final dto = LoginResponseDto.fromJson(jsonDecode(response.body));
+        if (dto.token != null) apiClient.setToken(dto.token!);
+        return dto;
       case 401:
         throw const AppException('Correo o contraseña incorrectos.');
       case 400:

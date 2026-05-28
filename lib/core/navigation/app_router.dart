@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import '../../features/auth/di/auth_di.dart';
 import '../../features/auth/presentation/pages/login_page.dart';
 import '../../features/auth/presentation/pages/register_page.dart';
+import '../../features/products/di/products_di.dart';
+import '../../features/products/presentation/pages/add_product_page.dart';
+import '../../features/products/presentation/pages/products_page.dart';
 import '../network/api_client.dart';
 import 'app_routes.dart';
 
@@ -16,7 +19,14 @@ class AppRouter {
               apiClient: apiClient,
               child: const RegisterPage(),
             ),
-        AppRoutes.products: (_) => const Placeholder(),
+        AppRoutes.products: (_) => ProductsDI.inject(
+              apiClient: apiClient,
+              child: const ProductsPage(),
+            ),
+        AppRoutes.addProduct: (_) => ProductsDI.inject(
+              apiClient: apiClient,
+              child: const AddProductPage(),
+            ),
         AppRoutes.productDetail: (_) => const Placeholder(),
       };
 }
